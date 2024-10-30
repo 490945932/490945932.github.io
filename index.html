@@ -1,1 +1,291 @@
-12
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖</title>
+</head>
+<style>
+    body {
+        background: rgba(254, 208, 170);
+    }
+
+    .content {
+        width: 1920px;
+        height: 1080px;
+        padding-top: 44px;
+        background-image: url('./imgs/大背景.png');
+        box-shadow: inset 0 0 100px 50px rgba(254, 208, 170, 1);
+        margin: 0 auto;
+    }
+
+    .header ul {
+        display: flex;
+        justify-content: center;
+    }
+
+    .header ul li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border-radius: 16px;
+        background-color: rgba(189, 49, 36, 1);
+        color: rgba(254, 250, 131, 1);
+        font-size: 24px;
+        font-family: Roboto;
+        border: 3px solid rgba(254, 250, 131, 1);
+        list-style-type: none;
+        margin-right: 35px;
+        cursor: pointer;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(222, 222, 222, 0.5);
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 20px;
+        border-radius: 16px;
+    }
+
+    .header ul li.active .overlay {
+        display: none;
+    }
+
+    .body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .body .left {
+        width: 538px;
+        height: 486px;
+        background-image: url('./imgs/左侧商品背景.png');
+    }
+
+    .body .right {
+        position: relative;
+        margin-left: 135px;
+    }
+
+    .one {
+        position: relative;
+        width: 637px;
+        height: 637px;
+        background-image: url('./imgs/一等奖背景图.png');
+    }
+
+    #number {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 370px;
+        height: 370px;
+        top: 83px;
+        left: 131px;
+        color: rgba(189, 49, 36, 1);
+        font-size: 36px;
+    }
+
+    .strong {
+        font-size: 120px;
+    }
+
+    .call {
+        position: absolute;
+        width: 365px;
+        height: 365px;
+        background-image: url('./imgs/打call.png');
+        right: -150px;
+        bottom: -80px;
+    }
+
+
+
+    #goods-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 315px;
+        height: 50px;
+        margin: 0 auto;
+        margin-top: 36px;
+        color: rgba(189, 49, 36, 1);
+        font-size: 28px;
+        text-align: left;
+        font-family: YSHaoShenTi-regular;
+    }
+
+    #goods-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 449px;
+        height: 325px;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-left: 48px;
+    }
+
+    #goods-img img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .footer {
+        position: relative;
+        width: 351px;
+        height: 351px;
+        background-image: url('./imgs/按钮.png');
+        margin: 0 auto;
+        margin-top: -100px;
+        color: rgba(255, 255, 255, 1);
+        font-size: 36px;
+        text-align: center;
+        font-family: SourceHanSansSC-bold;
+
+        color: rgba(255, 255, 255, 1);
+        font-size: 36px;
+    }
+
+    #start {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 160px;
+        height: 160px;
+        top: 95px;
+        left: 9px;
+        cursor: pointer;
+    }
+
+    #end {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 160px;
+        height: 160px;
+        top: 95px;
+        right: 14px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="header">
+            <ul>
+                <li id="three">
+                    三等奖 5名
+                    <div class="overlay"></div>
+                </li>
+                <li id="two">
+                    二等奖 3名
+                    <div class="overlay"></div>
+                </li>
+                <li id="one" class="active">
+                    一等奖 1名
+                    <div class="overlay"></div>
+                </li>
+                <li id="lucky">
+                    幸运奖 10名
+                    <div class="overlay"></div>
+                </li>
+                <!-- <li>倒霉蛋奖 100名</li> -->
+            </ul>
+        </div>
+        <div class="body">
+            <div class="left">
+                <div id="goods-title">一等奖：华为平板</div>
+                <div id="goods-img">
+                    <img src="./imgs/一等奖华为平板.png" alt="">
+                </div>
+            </div>
+            <div class="right">
+                <div class="one">
+                    <div id="number">
+                        <span id="numberNnum" class="strong">---</span>
+                        <span style="margin-bottom: -50px;">号</span>
+                    </div>
+                </div>
+
+                <div class="call"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div id="start">开始</div>
+            <div id="end">结束</div>
+        </div>
+    </div>
+</body>
+<script>
+    const items = document.querySelectorAll('li');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            // 移除所有 li 的 active 类
+            items.forEach(i => {
+                i.classList.remove('active');
+            });
+
+            // 为被点击的 li 添加 active 类
+            item.classList.add('active');
+        });
+    });
+
+
+    const startButton = document.getElementById('start');
+    const endButton = document.getElementById('end');
+    const numberDiv = document.getElementById('numberNnum');
+
+    const blackList = [100, 200, 300, 400, 500]; // 黑幕号码池
+    let intervalId;
+
+    startButton.addEventListener('click', () => {
+        // 防止重复点击
+        if (intervalId) return;
+
+        // 开始滚动
+        numberDiv.textContent = ''; // 清空显示
+        intervalId = setInterval(() => {
+            // 显示随机数（不进行黑幕判断）
+            const randomNum = Math.floor(Math.random() * 1000) + 1;
+            numberDiv.textContent = randomNum;
+        }, 100); // 每100毫秒更新一次
+    });
+
+    endButton.addEventListener('click', () => {
+        // 停止滚动并进行抽奖
+        if (intervalId) {
+            clearInterval(intervalId);
+
+            // 进行抽奖逻辑
+            const randomNum = Math.random();
+            let prize;
+
+            if (randomNum < 0.7) {
+                // 70%的概率从黑幕号码池中抽取
+                prize = blackList[Math.floor(Math.random() * blackList.length)];
+            } else {
+                // 30%的概率生成1-1000之间的随机数
+                prize = Math.floor(Math.random() * 1000) + 1;
+            }
+
+            numberDiv.textContent = prize; // 显示最终结果
+            intervalId = null; // 重置 intervalId
+        }
+    });
+</script>
+
+</html>
